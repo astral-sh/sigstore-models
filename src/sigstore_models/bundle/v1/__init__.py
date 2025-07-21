@@ -16,7 +16,7 @@ from sigstore_models.rekor.v1 import TransparencyLogEntry
 
 
 class TimestampVerificationData(Base):
-    rfc3161_timestamps: t.Optional[list[RFC3161SignedTimestamp]] = None
+    rfc3161_timestamps: list[RFC3161SignedTimestamp] = []
 
 
 class VerificationMaterial(Base):

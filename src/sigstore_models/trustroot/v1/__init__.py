@@ -51,11 +51,11 @@ SIGNING_CONFIG_MEDIA_TYPES = t.Literal[
 
 class SigningConfig(Base):
     media_type: SIGNING_CONFIG_MEDIA_TYPES
-    ca_urls: t.Optional[list["Service"]] = None
-    oidc_urls: t.Optional[list["Service"]] = None
-    rekor_tlog_urls: t.Optional[list["Service"]] = None
+    ca_urls: list["Service"] = []
+    oidc_urls: list["Service"] = []
+    rekor_tlog_urls: list["Service"] = []
     rekor_tlog_config: t.Optional["ServiceConfiguration"] = None
-    tsa_urls: t.Optional[list["Service"]] = None
+    tsa_urls: list["Service"] = []
     tsa_config: t.Optional["ServiceConfiguration"] = None
 
 
