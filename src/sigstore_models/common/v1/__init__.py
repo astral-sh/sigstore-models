@@ -114,7 +114,7 @@ class RFC3161SignedTimestamp(Base):
 class PublicKey(Base):
     """Public key with encoding details and optional validity period."""
 
-    raw_bytes: t.Optional[bytes] = None  # DER-encoded public key
+    raw_bytes: t.Optional[ProtoBytes] = None  # DER-encoded public key
     key_details: PublicKeyDetails  # Key encoding and signature algorithm
     valid_for: t.Optional["TimeRange"] = None  # Optional validity period
 

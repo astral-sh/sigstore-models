@@ -1,5 +1,8 @@
 import typing as t
 
+import typing_extensions as te
+from pydantic import model_validator
+
 from sigstore_models._core import Base, ProtoBytes, ProtoU64
 from sigstore_models.common.v1 import LogId
 
@@ -19,6 +22,14 @@ class InclusionProof(Base):
     tree_size: ProtoU64
     hashes: list[ProtoBytes]
     checkpoint: t.Optional[Checkpoint] = None
+
+    @model_validator(mode="after")
+    def validate_log_index_in_tree_size(self) -> te.Self:
+        if self.tree_size <= self.log_index:
+            raise ValueError(
+                f"logIndex {self.log_index} must be less than treeSize {self.tree_size}"
+            )
+        return self
 
 
 class InclusionPromise(Base):
