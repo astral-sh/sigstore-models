@@ -30,6 +30,15 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version:
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "3.12"
+          - "3.13"
     permissions:
       contents: read
     steps:
@@ -39,6 +48,8 @@ jobs:
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - run: |
           uv run pytest
