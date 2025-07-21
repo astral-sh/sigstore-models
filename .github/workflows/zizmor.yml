@@ -13,7 +13,6 @@ jobs:
     name: Run zizmor 🌈
     runs-on: ubuntu-latest
     permissions:
-      security-events: write
       contents: read # only needed for private repos
       actions: read # only needed for private repos
     steps:
@@ -26,3 +25,4 @@ jobs:
         uses: zizmorcore/zizmor-action@f52a838cfabf134edcbaa7c8b3677dde20045018 # v0.1.1
         with:
           persona: pedantic
+          advanced-security: false
