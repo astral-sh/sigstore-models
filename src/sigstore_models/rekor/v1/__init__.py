@@ -45,4 +45,6 @@ class TransparencyLogEntry(Base):
     integrated_time: t.Optional[ProtoU64] = None
     inclusion_promise: t.Optional[InclusionPromise] = None
     inclusion_proof: InclusionProof
-    canonicalized_body: t.Optional[ProtoBytes] = None
+    # NOTE: Technically optional in protobuf-specs, but
+    # de facto required by sigstore-python.
+    canonicalized_body: ProtoBytes
