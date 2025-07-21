@@ -1,14 +1,11 @@
 [project]
 name = "sigstore-models"
-version = "0.1.0"
+version = "0.0.1"
 description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "William Woodruff", email = "william@astral.sh" }]
 requires-python = ">=3.9"
-dependencies = [
-    "pydantic>=2.11.7",
-    "typing-extensions>=4.14.1",
-]
+dependencies = ["pydantic>=2.11.7", "typing-extensions>=4.14.1"]
 
 
 [build-system]
@@ -16,7 +13,4 @@ requires = ["uv_build>=0.8.0,<0.9"]
 build-backend = "uv_build"
 
 [dependency-groups]
-dev = [
-    "pytest>=8.4.1",
-    "ruff>=0.12.4",
-]
+dev = ["pytest>=8.4.1", "ruff>=0.12.4"]
