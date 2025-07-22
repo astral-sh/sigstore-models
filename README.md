@@ -1,5 +1,7 @@
 # sigstore-models
 
+![PyPI - Version](https://img.shields.io/pypi/v/sigstore-models)
+
 Pydantic-based data models for Sigstore.
 
 These models mirror the subset of the [protobuf-specs] that
