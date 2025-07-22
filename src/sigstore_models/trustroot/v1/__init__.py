@@ -63,7 +63,7 @@ class Service(Base):
     url: str
     major_api_version: int
     valid_for: t.Optional[TimeRange] = None
-    operator: t.Optional[str] = None
+    operator: str
 
 
 class ServiceSelector(str, enum.Enum):
