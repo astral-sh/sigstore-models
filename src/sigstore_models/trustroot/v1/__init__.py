@@ -40,7 +40,7 @@ class TrustedRoot(Base):
     tlogs: list[TransparencyLogInstance]
     certificate_authorities: list[CertificateAuthority]
     ctlogs: list[TransparencyLogInstance]
-    timestamp_authorities: list[CertificateAuthority]
+    timestamp_authorities: list[CertificateAuthority] = []
 
 
 SIGNING_CONFIG_MEDIA_TYPES = t.Literal[
