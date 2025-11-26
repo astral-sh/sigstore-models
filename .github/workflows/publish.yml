@@ -15,7 +15,7 @@ jobs:
     name: Publish to PyPI
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # for PyPI trusted publishing
+      id-token: write # for PyPI trusted publishing + attestations
 
     environment:
       name: pypi.org
@@ -31,6 +31,9 @@ jobs:
 
       - name: Build
         run: uv build
+
+      - name: Attest
+        uses: astral-sh/attest-action@3c99a1d0ba30bf87597b4c2dd1354ac46a718edf # v0.0.2
 
       - name: Publish to PyPI
         run: |

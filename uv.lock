@@ -246,7 +246,7 @@ wheels = [
 
 [[package]]
 name = "sigstore-models"
-version = "0.0.5"
+version = "0.0.6rc1"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
