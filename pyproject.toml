@@ -4,7 +4,7 @@ version = "0.0.5"
 description = "Pydantic based models for Sigstore's protobuf specifications"
 readme = "README.md"
 authors = [{ name = "William Woodruff", email = "william@astral.sh" }]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = ["pydantic>=2.11.7", "typing-extensions>=4.14.1"]
 license-files = ["LICENSE"]
 classifiers = [
