@@ -3,6 +3,7 @@ name: Publish
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}
@@ -33,8 +34,9 @@ jobs:
         run: uv build
 
       - name: Attest
-        uses: astral-sh/attest-action@2287b72c48b3e28a7ffd7787935f3baad55a3560 # v0.0.3
+        uses: astral-sh/attest-action@24ef1e27aff05cfa71313553b7a268ae1c8b0d60 # main
 
       - name: Publish to PyPI
+        if: github.event_name == 'release' # only on release, not workflow_dispatch
         run: |
           uv publish --trusted-publishing=always dist/*
