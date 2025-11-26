@@ -33,7 +33,7 @@ jobs:
         run: uv build
 
       - name: Attest
-        uses: astral-sh/attest-action@3c99a1d0ba30bf87597b4c2dd1354ac46a718edf # v0.0.2
+        uses: astral-sh/attest-action@2287b72c48b3e28a7ffd7787935f3baad55a3560 # v0.0.3
 
       - name: Publish to PyPI
         run: |
