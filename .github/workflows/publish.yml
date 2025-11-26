@@ -34,7 +34,7 @@ jobs:
         run: uv build
 
       - name: Attest
-        uses: astral-sh/attest-action@cf31ff6b147798a96c30da416a6eadf42254b710 # main
+        uses: astral-sh/attest-action@93633cd9bc22cf4d359aa144a0169e95be304889 # main
 
       - name: Publish to PyPI
         if: github.event_name == 'release' # only on release, not workflow_dispatch
