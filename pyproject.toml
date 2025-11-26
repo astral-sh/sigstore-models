@@ -1,6 +1,6 @@
 [project]
 name = "sigstore-models"
-version = "0.0.6rc1"
+version = "0.0.6rc2"
 description = "Pydantic based models for Sigstore's protobuf specifications"
 readme = "README.md"
 authors = [{ name = "William Woodruff", email = "william@astral.sh" }]
