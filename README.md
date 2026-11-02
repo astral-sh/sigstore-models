@@ -26,8 +26,6 @@ are used by the [sigstore-python] library.
 2. Review and merge the release PR.
 3. Run [Release] from `main` with the same version.
 
-The `pypi.org` GitHub environment must allow deployments from the `main` branch.
-
 [protobuf-specs]: https://github.com/sigstore/protobuf-specs
 [sigstore-python]: https://github.com/sigstore/sigstore-python
 [Prepare release]: https://github.com/astral-sh/sigstore-models/actions/workflows/release-prepare.yml
