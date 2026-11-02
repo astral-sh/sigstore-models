@@ -1,0 +1,45 @@
+name: Prepare release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact package version without a leading v (e.g. 0.1.0 or 0.1.0rc1)
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  prepare:
+    name: Prepare release PR
+    if: github.repository == 'astral-sh/sigstore-models' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    concurrency:
+      group: release-prepare-${{ inputs.version }}
+      cancel-in-progress: false
+    permissions:
+      contents: write # Push the release branch.
+      pull-requests: write # Open or update the release PR.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: false
+
+      - name: Bump package version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          uv version --no-sync -- "$VERSION"
+          bash .github/scripts/check-release-version.sh "$VERSION"
+
+      - name: Create or update release PR
+        uses: astral-sh/github-actions/create-release-pr@b18ab2e0c11d16711c1818c8774babfa0203b909 # 2026.10.08.0
+        with:
+          version: ${{ inputs.version }}
+          tag-prefix: v

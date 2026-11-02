@@ -19,5 +19,14 @@ are used by the [sigstore-python] library.
 * Doing anything besides mirroring a subset of the types in
   [protobuf-specs].
 
+## Releasing
+
+1. Run [Prepare release] from `main` with the exact package version, such as
+   `0.1.0` or `0.1.0rc1`.
+2. Review and merge the release PR.
+3. Run [Release] from `main` with the same version.
+
 [protobuf-specs]: https://github.com/sigstore/protobuf-specs
 [sigstore-python]: https://github.com/sigstore/sigstore-python
+[Prepare release]: https://github.com/astral-sh/sigstore-models/actions/workflows/release-prepare.yml
+[Release]: https://github.com/astral-sh/sigstore-models/actions/workflows/publish.yml
