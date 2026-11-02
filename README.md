@@ -22,12 +22,9 @@ are used by the [sigstore-python] library.
 ## Releasing
 
 1. Run [Prepare release] from `main` with the exact package version, such as
-   `0.1.0` or `0.1.0rc1`. It updates `pyproject.toml` and `uv.lock` and opens
-   a release PR. Running it again with the same version updates that PR.
+   `0.1.0` or `0.1.0rc1`.
 2. Review and merge the release PR.
-3. Run [Release] from `main` with the same version. It builds and attests the
-   distributions, publishes them to PyPI, then tags the published commit as
-   `v<version>` and creates the GitHub Release.
+3. Run [Release] from `main` with the same version.
 
 The `pypi.org` GitHub environment must allow deployments from the `main` branch.
 
