@@ -1,8 +1,12 @@
-name: Publish
+name: Release
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact package version from the merged release PR, without a leading v
+        required: true
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}
@@ -11,10 +15,35 @@ concurrency:
 permissions: {}
 
 jobs:
-  pypi:
-    name: Publish to PyPI
+  validate:
+    name: Validate release
+    if: github.repository == 'astral-sh/sigstore-models' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
     permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: false
+
+      - name: Check release version and lockfile
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          bash .github/scripts/check-release-version.sh "$VERSION"
+          uv lock --check
+
+  pypi:
+    name: Publish to PyPI
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
       id-token: write # for PyPI trusted publishing + attestations
 
     environment:
@@ -24,6 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ github.sha }}
           persist-credentials: false
 
       - name: Install the latest version of uv
@@ -40,3 +70,23 @@ jobs:
       - name: Publish to PyPI
         run: |
           uv publish --trusted-publishing=always dist/*
+
+  github-release:
+    name: Create GitHub release
+    needs: pypi
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Create the tag and GitHub Release.
+    steps:
+      - name: Tag the published commit and create the release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          prerelease=()
+          if [[ "$VERSION" =~ (a|b|rc|\.dev)[0-9]+ ]]; then
+            prerelease+=(--prerelease)
+          fi
+          gh release create "v${VERSION}" --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" --title "v${VERSION}" --generate-notes "${prerelease[@]}"
