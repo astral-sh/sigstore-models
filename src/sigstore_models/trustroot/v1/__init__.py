@@ -1,6 +1,8 @@
 import enum
 import typing as t
 
+from pydantic import Field
+
 from sigstore_models._core import Base
 from sigstore_models.common.v1 import (
     DistinguishedName,
@@ -37,10 +39,10 @@ TRUSTED_ROOT_MEDIA_TYPES = t.Literal[
 
 class TrustedRoot(Base):
     media_type: TRUSTED_ROOT_MEDIA_TYPES
-    tlogs: list[TransparencyLogInstance]
-    certificate_authorities: list[CertificateAuthority]
-    ctlogs: list[TransparencyLogInstance]
-    timestamp_authorities: list[CertificateAuthority] = []
+    tlogs: list[TransparencyLogInstance] = Field(default_factory=list)
+    certificate_authorities: list[CertificateAuthority] = Field(default_factory=list)
+    ctlogs: list[TransparencyLogInstance] = Field(default_factory=list)
+    timestamp_authorities: list[CertificateAuthority] = Field(default_factory=list)
 
 
 SIGNING_CONFIG_MEDIA_TYPES = t.Literal[
