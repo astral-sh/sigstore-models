@@ -69,18 +69,21 @@ class PublicKeyDetails(str, enum.Enum):
 
     # ML-DSA
     #
-    # These ML_DSA_65 and ML-DSA_87 algorithms are the pure variants that
-    # take data to sign rather than the prehash variants (HashML-DSA), which
+    # These ML_DSA_44, ML_DSA_65 and ML-DSA_87 algorithms are the pure variants
+    # that take data to sign rather than the prehash variants (HashML-DSA), which
     # take digests.  While considered quantum-resistant, their usage
     # involves tradeoffs in that signatures and keys are much larger, and
     # this makes deployments more costly.
     #
-    # USER WARNING: ML_DSA_65 and ML_DSA_87 are experimental algorithms.
+    # USER WARNING: ML_DSA_44, ML_DSA_65 and ML_DSA_87 are experimental algorithms.
     # In the future they MAY be used by private Sigstore deployments, but
     # they are not yet fully functional.  This warning will be removed when
     # these algorithms are widely supported by Sigstore clients and servers,
     # but care should still be taken for production environments.
-    ML_DSA_65 = "ML_DSA_65"  # See NIST FIPS 204
+    #
+    # See NIST FIPS 204, RFC 9881 for algorithm identifiers
+    ML_DSA_44 = "ML_DSA_44"
+    ML_DSA_65 = "ML_DSA_65"
     ML_DSA_87 = "ML_DSA_87"
 
 
